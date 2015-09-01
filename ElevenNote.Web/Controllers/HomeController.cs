@@ -28,11 +28,15 @@ namespace ElevenNote.Web.Controllers
         }
         public ActionResult Michael()
         {
+            ViewBag.Message = "My First Name";
+
             return View();
         }
 
         public ActionResult Young()
         {
+            ViewBag.Message = "My Last Name";
+
             return View();
         }
     }
