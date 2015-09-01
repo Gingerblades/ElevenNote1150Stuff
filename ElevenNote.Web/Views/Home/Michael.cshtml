@@ -1,0 +1,25 @@
+﻿<h1>Michael</h1>
+<h2>Is a badss</h2>
+<h3>You have no proof it's not true, that it's impossible!</h3>
+<h4>Wubba lubba dub dub!</h4>
+
+@{ 
+    var maxNumberofWabbas = 150;
+        
+}
+
+Number of Wubbas before Lubbas:
+<select name="Wubbas">
+    @for (var i = 0; i <= maxNumberofWabbas; i++)
+    {
+        <option value="@i">@i</option>
+    }
+</select>
+
+Test:
+<select name="Test">
+@for (var i = 0; i <= maxNumberofWabbas; i++)
+{
+    <option value="@i">@i</option>
+}
+</select>
