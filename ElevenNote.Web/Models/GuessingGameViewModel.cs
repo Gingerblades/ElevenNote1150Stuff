@@ -8,15 +8,15 @@ namespace ElevenNote.Web.Models
 {
     public class GuessingGameViewModel
     {
-        [Required]
-        [MinLength(2)]
-        [MaxLength(20)]
-        [Display(Name="Your Name")]
+        [Required(ErrorMessage = "Required")]
+        [MinLength(2, ErrorMessage = "TooShort")]
+        [MaxLength(20, ErrorMessage = "Too Long")]
+        [Display(Name = "Your Name")]
         public string Name { get; set; }
 
-        [Required]
-        [Range(1, 10)]
-        [Display(Name="Your Guess")]
+        [Required(ErrorMessage = "Required")]
+        [Range(1, 10, ErrorMessage = "Must be between 1 and 10")]
+        [Display(Name = "Your Guess")]
         public int Guess { get; set; }
     }
 }
