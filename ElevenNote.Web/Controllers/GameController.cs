@@ -16,7 +16,7 @@ namespace ElevenNote.Web.Controllers
         [ActionName("Index")]
         public ActionResult IndexGet()
         {
-            var correctAnswer = new Random().Next(1, 10);
+            var correctAnswer = new Random().Next(1, 50);
             Session["Answer"] = correctAnswer;
             return View();
         }
