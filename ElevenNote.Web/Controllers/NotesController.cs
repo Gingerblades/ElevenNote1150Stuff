@@ -1,55 +1,52 @@
 ﻿using ElevenNote.Models.ViewModels;
+using ElevenNote.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace ElevenNote.Web.Controllers
 {
+    [Authorize]
     public class NotesController : Controller
     {
-        // GET: Notes
+
         public ActionResult Index()
         {
-            var notes = new List<NoteListViewModel>();
-            notes.Add(new NoteListViewModel()
-            {
-                Id = 0,
-                DateCreated = DateTime.UtcNow,
-                DateModified = null,
-                IsFavorite = true,
-                Title = "Some note title"
-            });
+            if (TempData["Result"] != null)
+            { 
+                ViewBag.Success = TempData["Result"] ?? "";
+                TempData.Remove("Result");
+            }
 
-            notes.Add(new NoteListViewModel()
-            {
-                Id = 1,
-                DateCreated = DateTime.UtcNow.AddMonths(-1),
-                DateModified = DateTime.UtcNow,
-                IsFavorite = true,
-                Title = "Some note title 2.0"
-            });
-
-            notes.Add(new NoteListViewModel()
-            {
-                Id = 2,
-                DateCreated = DateTime.UtcNow.AddMonths(-2),
-                DateModified = DateTime.UtcNow.AddMonths(1),
-                IsFavorite = true,
-                Title = "Some note title 3.0"
-            });
-
-            notes.Add(new NoteListViewModel()
-            {
-                Id = 3,
-                DateCreated = DateTime.UtcNow.AddMonths(-3),
-                DateModified = DateTime.UtcNow.AddMonths(2),
-                IsFavorite = false,
-                Title = "Some note title 4.0"
-            });
-
+            var notesService = new NoteService();
+            var notes = notesService.GetAllForUser(Guid.Parse(User.Identity.GetUserId()));
             return View(notes);
+        }
+
+        // GET: Notes
+        [HttpGet]
+        [ActionName("Create")]
+        public ActionResult CreateGet()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("Create")]
+        public ActionResult CreatePost(NoteEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var noteService = new NoteService();
+                var userId = Guid.Parse(User.Identity.GetUserId());
+                var result = noteService.Create(model, userId);
+                TempData.Add("Result", result ? "Note added." : "Note not added.");
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
     }
 }

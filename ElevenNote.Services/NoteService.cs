@@ -12,7 +12,7 @@ namespace ElevenNote.Services
     /// <summary>
     /// Represents services for Note CRUD
     /// </summary>
-    class NoteService
+    public class NoteService
     {
         /// <summary>
         /// Create a note.

@@ -17,7 +17,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Young Note", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -27,6 +27,7 @@
                     <li>@Html.ActionLink("Michael", "Michael", "Home")</li>
                     <li>@Html.ActionLink("Young", "Young", "Home")</li>
                     <li>@Html.ActionLink("Game", "Index", "Game")</li>
+                    @if (HttpContext.Current.User.Identity.IsAuthenticated) {<li>@Html.ActionLink("My Notes", "Index", "Notes")</li>}
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
