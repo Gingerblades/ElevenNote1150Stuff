@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ElevenNote.Web.Models;
+using System.Configuration;
 
 namespace ElevenNote.Web
 {
@@ -51,13 +52,19 @@ namespace ElevenNote.Web
             };
 
             // Configure validation logic for passwords
+            var requiredLength = ConfigurationManager.AppSettings["PasswordConfig.RequiredLength"];
+            var requreNonLetterOrDigit = ConfigurationManager.AppSettings["PasswordConfig.RequireNonLetterOrDigit"];
+            var requreDigit = ConfigurationManager.AppSettings["PasswordConfig.RequireDigit"];
+            var requreLowercase = ConfigurationManager.AppSettings["PasswordConfig.RequireLowercase"];
+            var requreUppercase= ConfigurationManager.AppSettings["PasswordConfig.RequireUppercase"];
+
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequiredLength = int.Parse(requiredLength),
+                RequireNonLetterOrDigit = bool.Parse(requreNonLetterOrDigit),
+                RequireDigit = bool.Parse(requreDigit),
+                RequireLowercase = bool.Parse(requreLowercase),
+                RequireUppercase = bool.Parse(requreUppercase)
             };
 
             // Configure user lockout defaults
