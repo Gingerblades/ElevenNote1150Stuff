@@ -17,7 +17,15 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Contents)
+            @Html.Raw(Model.Contents.Replace("<script",""))
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsFavorite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsFavorite)
         </dd>
 
     </dl>

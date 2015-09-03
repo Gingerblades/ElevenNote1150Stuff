@@ -21,7 +21,7 @@ namespace ElevenNote.Models.ViewModels
         [MaxLength(8000)]
         public string Contents { get; set; }
 
-
+        [Display(Name = "Is Favorite")]
         public bool IsFavorite { get; set; }
     }
 }
